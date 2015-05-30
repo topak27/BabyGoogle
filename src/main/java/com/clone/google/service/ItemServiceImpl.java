@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -37,6 +38,6 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<Item> findForQuery(String query) {
-        return null;
+        return this.itemRepository.findByBody(query, new PageRequest(0, 10)).getContent();
     }
 }

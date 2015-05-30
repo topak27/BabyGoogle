@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Indexed!</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+    </head>
+    <body>
+        <div style="margin-top: 5%">
+            <div class="col-md-8 col-md-offset-2">
+                <p th:text="'Search results for &quot;' + ${query} + '&quot;:'"/><br/>
+                <div th:each="item : ${items}">
+                    <a th:href="${item.url}"><h4 th:text="${item.title}"/></a>
+                    <a th:href="${item.url}"><p th:text="${item.url}"/></a>
+                    <p th:utext="${item.body}"/>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

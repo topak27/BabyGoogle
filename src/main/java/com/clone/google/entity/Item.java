@@ -2,22 +2,27 @@ package com.clone.google.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
 
 @Document(indexName = "clone", type = "item", shards = 1, replicas = 0, refreshInterval = "-1")
 public class Item {
 
     @Id
     private String url;
+
     private String title;
+
+    @Field(
+            searchAnalyzer = "standard",
+            indexAnalyzer = "standard",
+            store = true
+    )
     private String body;
+
+    public Item() {};
 
     public Item(String url, String title, String body) {
         this.url = url;
-        this.title = title;
-        this.body = body;
-    }
-
-    public Item(String title, String body) {
         this.title = title;
         this.body = body;
     }
