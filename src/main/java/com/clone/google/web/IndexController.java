@@ -23,8 +23,11 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/index", method = RequestMethod.POST)
-    public String index(@RequestParam(value="q", required=true) String url, Model model) throws IOException {
-        int maxLevel = 3;
+    public String index(
+            @RequestParam(value="q", required=true) String url,
+            @RequestParam(value="maxLevel", required=true) int maxLevel,
+            Model model
+    ) throws IOException {
         Item item = this.itemService.index(url, maxLevel);
         model.addAttribute("item", item);
         return "indexed";

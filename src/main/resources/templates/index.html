@@ -7,14 +7,26 @@
     </head>
     <body>
         <div style="margin-top: 15%">
-            <div style="text-align: center">
-                <h1 style="font-size: 100px">BabyGoogle</h1>
+            <div>
+                <h1 style="font-size: 100px; text-align: center">BabyGoogle</h1>
                 <form action="/index" method="post">
                     <div class="form-group">
                         <div class="col-md-8 col-md-offset-2">
                             <input type="text" required="required" name="q" id="q" placeholder="Url to ingex" class="form-control input-lg"/><br/>
                             <script>document.getElementById("q").focus()</script>
-                            <button type="submit" class="btn btn-default btn-lg">Index</button>
+                            <div class="form-inline col-md-6">
+                                <div class="pull-right">
+                                    <label class="control-label">depth</label>
+                                    <select name="maxLevel" class="form-control input-lg">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-default btn-lg">Index</button>
+                            </div>
                         </div>
                     </div>
                 </form>
