@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ItemService {
 
-    Item index(String url) throws IOException;
+    Item index(String url, int maxLevel) throws IOException;
     List<Item> findForQuery(String query, int page, int limit);
 }

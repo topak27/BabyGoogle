@@ -17,7 +17,7 @@
                     <br/>
                 </div>
             </div>
-            <div th:if="${items.size() &gt; 10}" class="col-md-8 col-md-offset-2">
+            <div th:if="${items.size() == 10}" class="col-md-8 col-md-offset-2">
                 <button id="more" page="1" limit="10" class="btn btn-default pull-right">more</button>
                 <script th:inline="javascript">
                     $( "#more" ).click(function() {
