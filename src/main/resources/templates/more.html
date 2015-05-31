@@ -1,0 +1,6 @@
+<div th:each="item : ${items}">
+    <a th:href="${item.url}"><h4 th:utext="${item.title}"/></a>
+    <a th:href="${item.url}"><p th:text="${item.url}"/></a>
+    <p th:utext="${item.body}"/>
+    <br/>
+</div>

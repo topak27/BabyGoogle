@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface ItemService {
 
-    void index(Item item);
     Item index(String url) throws IOException;
-    List<Item> findForQuery(String query);
+    List<Item> findForQuery(String query, int page, int limit);
 }

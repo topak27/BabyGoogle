@@ -10,27 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
-import java.util.List;
-
 
 @Controller
 public class IndexController {
 
     @Autowired
-    ItemService itemService;
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String search() {
-        return "search";
-    }
-
-    @RequestMapping(value = "/search", method = { RequestMethod.GET, RequestMethod.POST })
-    public String search(@RequestParam(value="q", required=true) String query, Model model) {
-        List<Item> items = this.itemService.findForQuery(query);
-        model.addAttribute("items", items);
-        model.addAttribute("query", query);
-        return "result";
-    }
+    private ItemService itemService;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {

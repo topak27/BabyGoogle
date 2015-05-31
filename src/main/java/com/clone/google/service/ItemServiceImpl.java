@@ -11,19 +11,26 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class ItemServiceImpl implements ItemService {
 
-    final static Logger logger = Logger.getLogger(ItemServiceImpl.class);
+    private final static int processorCount = Runtime.getRuntime().availableProcessors();
+    private final static Logger logger = Logger.getLogger(ItemServiceImpl.class);
+    private final static ExecutorService executorService = new ThreadPoolExecutor(
+            processorCount, processorCount, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>()
+    );
 
     @Autowired
-    ItemRepository itemRepository;
+    private ItemRepository itemRepository;
 
     @Override
-    public void index(Item item) {
-        this.itemRepository.save(item);
-        logger.info("Indexed URL: " + item.getUrl());
+    public List<Item> findForQuery(String query, int page, int limit) {
+        return this.itemRepository.findForQuery(query, new PageRequest(page, limit)).getContent();
     }
 
     @Override
@@ -32,12 +39,16 @@ public class ItemServiceImpl implements ItemService {
         String title = doc.title();
         String body = doc.body().text();
         Item item = new Item(url, title, body);
-        this.index(item);
+        this.save(item);
         return item;
     }
 
-    @Override
-    public List<Item> findForQuery(String query) {
-        return this.itemRepository.findByBody(query, new PageRequest(0, 10)).getContent();
+    private void process(String url) {
+
+    }
+
+    private void save(Item item) {
+        this.itemRepository.save(item);
+        logger.info("Indexed URL: " + item.getUrl());
     }
 }

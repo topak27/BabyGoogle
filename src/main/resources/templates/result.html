@@ -1,20 +1,42 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Indexed!</title>
+        <title>Result</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     </head>
     <body>
         <div style="margin-top: 5%">
-            <div class="col-md-8 col-md-offset-2">
+            <div id="results" class="col-md-8 col-md-offset-2">
                 <p th:text="'Search results for &quot;' + ${query} + '&quot;:'"/><br/>
                 <div th:each="item : ${items}">
-                    <a th:href="${item.url}"><h4 th:text="${item.title}"/></a>
+                    <a th:href="${item.url}"><h4 th:utext="${item.title}"/></a>
                     <a th:href="${item.url}"><p th:text="${item.url}"/></a>
                     <p th:utext="${item.body}"/>
                     <br/>
                 </div>
+            </div>
+            <div th:if="${items.size() &gt; 10}" class="col-md-8 col-md-offset-2">
+                <button id="more" page="1" limit="10" class="btn btn-default pull-right">more</button>
+                <script th:inline="javascript">
+                    $( "#more" ).click(function() {
+                        var more = $(this);
+                        var page = more.attr("page");
+                        $.ajax({
+                            url: "/more",
+                            data: {
+                                q: [[${query}]],
+                                page: page,
+                                limit: more.attr("limit")
+                            },
+                            success: function( data ) {
+                                $( "#results").append(data);
+                                $( "#more" ).attr("page", ++page);
+                            }
+                        });
+                    });
+                </script>
             </div>
         </div>
     </body>

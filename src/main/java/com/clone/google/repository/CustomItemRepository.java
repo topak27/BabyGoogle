@@ -5,5 +5,5 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface CustomItemRepository {
-    Page<Item> findByBody(String query, Pageable pageable);
+    Page<Item> findForQuery(String query, Pageable pageable);
 }
