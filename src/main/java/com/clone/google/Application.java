@@ -3,6 +3,7 @@ package com.clone.google;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.thymeleaf.templateresolver.FileTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
@@ -11,6 +12,7 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 public class Application {
 
     @Bean
+    @Profile("dev")
     public ITemplateResolver defaultTemplateResolver() {
         TemplateResolver resolver = new FileTemplateResolver();
         resolver.setSuffix(".html");
